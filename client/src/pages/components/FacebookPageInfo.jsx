@@ -12,7 +12,6 @@ export default function FacebookPageInfo ({ accessToken, pageId }){
 
             try {
                 // fetching page accesstoken
-                console.log('pageid is', pageId);
                 const myResponse = await axios.get(`https://graph.facebook.com/v22.0/me/accounts`, {
                     params: {
                         access_token: accessToken,
@@ -31,7 +30,6 @@ export default function FacebookPageInfo ({ accessToken, pageId }){
                                 period: metricPeriod,
                             }
                         });
-                        console.log(response.data);
                         const formattedData = response.data.data.reduce((acc, insight) => {
                             const name = insight.name;
                             const value = insight.values[0]?.value;
@@ -45,8 +43,6 @@ export default function FacebookPageInfo ({ accessToken, pageId }){
                             ...prevInsights,
                             ...formattedData
                         }));
-
-                        console.log('formattedData is ', formattedData);
                     }
 
                     const requiredProps = {

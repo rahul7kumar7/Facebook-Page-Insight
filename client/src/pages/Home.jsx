@@ -8,6 +8,7 @@ export default function Home () {
     const [accessToken, setAccessToken] = useState('');
     const [error, setError] = useState('');
     const [selectedPage, setSelectedPage] = useState('');
+    const [sdkNotLoaded, setSdkNotLoaded] = useState(false);
 
     useEffect(() => {
         facebookSdkLoader();
@@ -33,6 +34,7 @@ export default function Home () {
             }, { scope: 'pages_show_list, pages_read_engagement, read_insights' });
         } else {
             setError('Issue loading Facebook SDK.');
+            setSdkNotLoaded(true);
         }
     }
 
@@ -70,6 +72,12 @@ export default function Home () {
                 )}
 
                 {error && <div className="font-[Helvetica] text-red-500 font-semibold text-[12px]">{error}</div>}
+                {sdkNotLoaded && (
+                    <div className="flex flex-col justify-center items-center gap-3">
+                    <p>Try disabling "Tracking prevention for this site (Strict)"</p>
+                        <img src="https://res.cloudinary.com/dg01gwwoc/image/upload/v1738556608/tytvi6hrubpgeaasl1ay.png" alt=""/>
+                    </div>
+                )}
                 <div className="p-2">
                     Made by <a href="https://github.com/rahul7kumar7/" className="text-[#0865fe] my-2 hover:underline">github@rahul7kumar7</a>
                 </div>
